@@ -51,9 +51,9 @@ echo $geoIp->getPostalCode();
 // "region" -- The region code (ex: CA for California)
 echo $geoIp->getRegion();
 
-[geoip_record_by_name](http://php.net/manual/en/function.geoip-record-by-name.php)
-
 ```
+
+[geoip_record_by_name](http://php.net/manual/en/function.geoip-record-by-name.php)
 
 ## Development
 
