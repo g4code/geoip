@@ -23,7 +23,9 @@ class GeoIP
     public function __construct($ip = null)
     {
         $this->ip = $ip;
-        $this->initialize();
+        if ($this->id !== null) {
+            $this->findRecord();
+        }
     }
 
     /**
@@ -149,6 +151,19 @@ class GeoIP
         return is_array($this->record) && !empty($this->record);
     }
 
+    /**
+     * @param string $ip
+     * @return \G4\GeoIP\GeoIP
+     */
+    public function setIp($ip)
+    {
+        if ($this->ip !== $ip) {
+            $this->ip = $ip;
+            $this->findRecord();
+        }
+        return $this;
+    }
+
     private function convert($value)
     {
         return mb_convert_encoding($value, self::ENCODING_UTF, self::ENCODING_ISO);
@@ -163,7 +178,7 @@ class GeoIP
         return $this->hasRecord() ? $this->record[$key] : null;
     }
 
-    private function initialize()
+    private function findRecord()
     {
         $this->record = @geoip_record_by_name($this->ip);
     }
