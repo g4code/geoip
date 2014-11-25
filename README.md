@@ -37,6 +37,8 @@ echo $geoIp->getCountryCode3();
 
 // "country_name" -- The country name
 echo $geoIp->getCountryName();
+
+// IP address
 echo $geoIp->getIp();
 
 // "latitude" -- The Latitude as signed double
