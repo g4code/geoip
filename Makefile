@@ -32,7 +32,8 @@ update:
 	
 push:
 	@/bin/echo -e "${TITLE} starting git push..." \
-	$$ git push --all && git push --tags\
+	$$ git push --all \
+	&& git push --tags \
 	&& /bin/echo -e "${TITLE} git push finished"
 
 .PHONY: all
