@@ -23,7 +23,7 @@ class GeoIP
     public function __construct($ip = null)
     {
         $this->ip = $ip;
-        if ($this->id !== null) {
+        if ($this->ip !== null) {
             $this->findRecord();
         }
     }

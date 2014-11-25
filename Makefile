@@ -29,8 +29,14 @@ update:
 	@/bin/echo -e "${TITLE} update dependencies..." \
 	&& php composer.phar update \
 	&& /bin/echo -e "${TITLE} dependencies updated"
+	
+push:
+	@/bin/echo -e "${TITLE} starting git push..." \
+	$$ git push --all && git push --tags\
+	&& /bin/echo -e "${TITLE} git push finished"
 
 .PHONY: all
 .PHONY: clean-composer-lock
 .PHONY: install update self-update
 .PHONY: test test-group
+.PHONY: push
