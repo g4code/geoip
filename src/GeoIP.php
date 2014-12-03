@@ -132,7 +132,7 @@ class GeoIP
      */
     public function hasCity()
     {
-        return $this->get('city') !== null;
+        return $this->get('city') != null;
     }
 
     /**
