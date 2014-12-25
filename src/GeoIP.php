@@ -23,7 +23,8 @@ class GeoIP
     public function __construct($ip = null)
     {
         $this->ip = $ip;
-        if ($this->ip !== null) {
+
+        if ($this->isIpValid()) {
             $this->findRecord();
         }
     }
@@ -181,5 +182,11 @@ class GeoIP
     private function findRecord()
     {
         $this->record = @geoip_record_by_name($this->ip);
+    }
+
+    private function isIpValid()
+    {
+        return $this->ip !== null
+            && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     }
 }
