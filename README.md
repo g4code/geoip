@@ -15,7 +15,7 @@ composer require g4/geoip
 ``` php
 <?php
     
-$geoIp = new \G4\GeoIp\GeoIp('127.0.0.1');
+$geoIp = new \G4\GeoIP\GeoIP('127.0.0.1');
 
 // "area_code" -- The PSTN area code (ex: 212)
 echo $geoIp->getAreaCode();
