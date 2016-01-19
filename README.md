@@ -9,6 +9,10 @@ Via Composer
 ```sh
 composer require g4/geoip
 ```
+## Requirements
+
+* PHP GeoIP extension http://php.net/manual/en/geoip.setup.php
+* Maxmind GeoIP database http://dev.maxmind.com/
 
 ## Usage
 
