@@ -6,6 +6,7 @@ class GeoIP
 {
     const ENCODING_ISO = 'ISO-8859-1';
     const ENCODING_UTF = 'UTF-8';
+    const GEOIP2_DATABASE = '/usr/share/GeoIP/GeoIP2-City.mmdb';
 
     /**
      * @var string
@@ -181,12 +182,45 @@ class GeoIP
 
     private function findRecord()
     {
-        $this->record = @geoip_record_by_name($this->ip);
+        $this->record = $this->isIpv6()
+            ? $this->findRecordIpv6()
+            : @geoip_record_by_name($this->ip);
+    }
+
+    private function findRecordIpv6()
+    {
+        if (!file_exists(self::GEOIP2_DATABASE)) {
+            throw new \Exception("MaxMind GeoIP2 database not found at: " . self::GEOIP2_DATABASE);
+        }
+
+        $reader = new \GeoIp2\Database\Reader(self::GEOIP2_DATABASE);
+        $result = $reader->city($this->ip);
+
+        return [
+            'continent_code' => $result->continent->code,
+            'country_code'   => $result->country->isoCode,
+            'country_code3'  => null,
+            'country_name'   => $result->country->name,
+            'region'         => isset($result->subdivisions[0]) ? $result->subdivisions[0]->isoCode : null,
+            'city'           => $result->city->name,
+            'postal_code'    => $result->postal->code,
+            'latitude'       => $result->location->latitude,
+            'longitude'      => $result->location->longitude,
+            'dma_code'       => $result->location->metroCode,
+            'area_code'      => null,
+        ];
     }
 
     private function isIpValid()
     {
         return $this->ip !== null
             && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    }
+
+
+    private function isIpv6()
+    {
+        return $this->ip !== null
+        && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 }
