@@ -16,6 +16,7 @@
     "phpunit/phpunit": "3.7.*"
   },
   "require": {
-    "ext-geoip": "*"
+    "ext-geoip": "*",
+    "geoip2/geoip2": "~2.0"
   }
 }
