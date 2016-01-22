@@ -9,13 +9,17 @@ Via Composer
 ```sh
 composer require g4/geoip
 ```
+## Requirements
+
+* PHP GeoIP extension http://php.net/manual/en/geoip.setup.php
+* Maxmind GeoIP database http://dev.maxmind.com/
 
 ## Usage
 
 ``` php
 <?php
     
-$geoIp = new \G4\GeoIp\GeoIp('127.0.0.1');
+$geoIp = new \G4\GeoIP\GeoIP('127.0.0.1');
 
 // "area_code" -- The PSTN area code (ex: 212)
 echo $geoIp->getAreaCode();
