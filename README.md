@@ -14,6 +14,14 @@ composer require g4/geoip
 * PHP GeoIP extension http://php.net/manual/en/geoip.setup.php
 * Maxmind GeoIP database http://dev.maxmind.com/
 * Maxmind GeoIP2-City database
+
+## Installing required packages (CentOS, Redhat)
+
+* yum install GeoIP
+* yum install GeoIP-devel
+* yum install geoipupdate
+* pecl install geoip
+
 ## Usage
 
 ``` php
