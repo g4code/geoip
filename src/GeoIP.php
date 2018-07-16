@@ -4,6 +4,7 @@ namespace G4\GeoIP;
 
 class GeoIP
 {
+    const COUNTRY_CODE_EU = 'EU';
     const ENCODING_ISO = 'ISO-8859-1';
     const ENCODING_UTF = 'UTF-8';
     const GEOIP2_DATABASE = '/usr/share/GeoIP/GeoIP2-City.mmdb';
@@ -27,6 +28,10 @@ class GeoIP
 
         if ($this->isIpValid()) {
             $this->findRecord();
+        }
+
+        if ($this->isCountryCodeEu()) {
+            $this->record = $this->getNonEuGeoIpData();
         }
     }
 
@@ -214,7 +219,7 @@ class GeoIP
     private function isIpValid()
     {
         return $this->ip !== null
-            && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+        && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     }
 
 
@@ -222,5 +227,33 @@ class GeoIP
     {
         return $this->ip !== null
         && filter_var($this->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isCountryCodeEu()
+    {
+        return $this->getCountryCode() === self::COUNTRY_CODE_EU;
+    }
+
+    /**
+     * @return array
+     */
+    private function getNonEuGeoIpData()
+    {
+        return [
+            'continent_code' => 'EU',
+            'country_code'   => 'BE',
+            'country_code3'  => 'BEL',
+            'country_name'   => 'Belgium',
+            'region'         => '11',
+            'city'           => 'Brussels',
+            'postal_code'    => '1080',
+            'latitude'       => 50.843637,
+            'longitude'      => 4.3497265,
+            'dma_code'       => 0,
+            'area_code'      => 0,
+        ];
     }
 }
