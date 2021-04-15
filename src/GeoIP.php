@@ -173,7 +173,7 @@ class GeoIP
 
     private function convert($value)
     {
-        return mb_convert_encoding($value, self::ENCODING_UTF, self::ENCODING_ISO);
+        return mb_convert_encoding($value, self::ENCODING_UTF, mb_detect_encoding($value) ?: self::ENCODING_ISO);
     }
 
     /**
