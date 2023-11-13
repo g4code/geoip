@@ -4,10 +4,10 @@ namespace G4\GeoIP;
 
 class GeoIP
 {
-    const COUNTRY_CODE_EU = 'EU';
-    const ENCODING_ISO = 'ISO-8859-1';
-    const ENCODING_UTF = 'UTF-8';
-    const GEOIP2_DATABASE = '/usr/share/GeoIP/GeoIP2-City.mmdb';
+    public const COUNTRY_CODE_EU = 'EU';
+    public const ENCODING_ISO = 'ISO-8859-1';
+    public const ENCODING_UTF = 'UTF-8';
+    public const GEOIP2_DATABASE = '/usr/share/GeoIP/GeoIP2-City.mmdb';
 
     /**
      * @var string
@@ -139,7 +139,7 @@ class GeoIP
      */
     public function hasCity()
     {
-        return $this->get('city') != null;
+        return $this->get('city') !== null;
     }
 
     /**
@@ -171,14 +171,21 @@ class GeoIP
         return $this;
     }
 
+    /**
+     * @param string|null $value
+     * @return string|null
+     */
     private function convert($value)
     {
+        if ($value === null) {
+            return $value;
+        }
         return mb_convert_encoding($value, self::ENCODING_UTF, mb_detect_encoding($value) ?: self::ENCODING_ISO);
     }
 
     /**
      * @param string $key
-     * @return bool
+     * @return string
      */
     private function get($key)
     {
@@ -230,16 +237,16 @@ class GeoIP
     {
         return [
             'continent_code' => 'EU',
-            'country_code'   => 'BE',
-            'country_code3'  => 'BEL',
-            'country_name'   => 'Belgium',
-            'region'         => '11',
-            'city'           => 'Brussels',
-            'postal_code'    => '1080',
-            'latitude'       => 50.843637,
-            'longitude'      => 4.3497265,
-            'dma_code'       => 0,
-            'area_code'      => 0,
+            'country_code' => 'BE',
+            'country_code3' => 'BEL',
+            'country_name' => 'Belgium',
+            'region' => '11',
+            'city' => 'Brussels',
+            'postal_code' => '1080',
+            'latitude' => 50.843637,
+            'longitude' => 4.3497265,
+            'dma_code' => 0,
+            'area_code' => 0,
         ];
     }
 }
