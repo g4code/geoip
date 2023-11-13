@@ -8,6 +8,7 @@
 
 composer.phar
 vendor
+composer.lock
 
 .buildpath
 .project
